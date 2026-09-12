@@ -44,6 +44,9 @@ Singleton {
 
   readonly property bool busy: state === "running"
   readonly property string stageLabel: stageLabels[stage] || "Preparing"
+  // Which of the write / hash-iso / hash-device passes is running, so the
+  // byte counter below the bar is not mistaken for overall progress.
+  readonly property int pass: stage === "hash-device" ? 3 : (stage === "hash-iso" ? 2 : 1)
   // Write is one pass, verify adds two more; weight them so the bar advances
   // monotonically across the whole job instead of resetting per stage.
   readonly property real progress: {

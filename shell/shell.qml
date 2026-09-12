@@ -509,6 +509,7 @@ ShellRoot {
             Text {
               text: Math.round(Flasher.progress * 100) + "%  ·  "
                 + Drives.humanSize(Flasher.stageBytes) + " of " + Drives.humanSize(Flasher.totalBytes)
+                + (Flasher.verify ? "  ·  pass " + Flasher.pass + " of 3" : "")
               color: Theme.foreground
               font.family: Theme.fontFamily
               font.pixelSize: Theme.fontSmall

@@ -9,6 +9,8 @@ looks like the rest of the desktop rather than a transplanted GTK dialog.
 
 ![The app: a disk image list on the left, target drives on the right](docs/screenshot.png)
 
+![The write in progress: stage, progress bar, throughput and ETA](docs/progress.png)
+
 ## Why
 
 `dd if=… of=/dev/sdX` is the right tool and also the one that eats the wrong
