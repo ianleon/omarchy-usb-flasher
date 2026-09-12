@@ -1,0 +1,16 @@
+#!/bin/bash
+# Launch the USB flasher, reusing the window if it is already up.
+set -euo pipefail
+
+config_dir="${OMARCHY_USB_FLASHER_DIR:-$HOME/.config/quickshell/omarchy-usb-flasher}"
+
+if [[ ! -f $config_dir/shell.qml ]]; then
+  echo "omarchy-usb-flasher: not installed at $config_dir — run install.sh" >&2
+  exit 1
+fi
+
+if command -v hyprctl >/dev/null && hyprctl clients -j 2>/dev/null | grep -q '"title": "USB Flasher"'; then
+  hyprctl dispatch 'hl.dsp.window.focus("title:USB Flasher")' >/dev/null 2>&1 && exit 0
+fi
+
+exec qs -p "$config_dir/shell.qml" "$@"

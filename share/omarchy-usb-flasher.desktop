@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=USB Flasher
+GenericName=Bootable USB writer
+Comment=Write a Linux ISO to a USB drive
+Exec=omarchy-usb-flasher
+Icon=drive-removable-media-usb
+Terminal=false
+Categories=System;Utility;
+Keywords=usb;iso;flash;boot;image;dd;
+StartupWMClass=org.quickshell

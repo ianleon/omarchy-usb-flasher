@@ -1,0 +1,4 @@
+singleton Theme 1.0 Theme.qml
+singleton Drives 1.0 Drives.qml
+singleton Isos 1.0 Isos.qml
+singleton Flasher 1.0 Flasher.qml
