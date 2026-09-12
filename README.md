@@ -36,6 +36,9 @@ matter made visible:
 
 All of these are already on a stock Omarchy install.
 
+Tested on Omarchy 4.0.0.alpha with Quickshell 0.3.1, writing a Linux Mint ISO
+to a USB stick that then installed cleanly.
+
 ## Install
 
 ```bash
