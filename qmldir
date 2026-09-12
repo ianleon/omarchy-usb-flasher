@@ -1,0 +1,8 @@
+singleton Theme 1.0 Theme.qml
+singleton Drives 1.0 Drives.qml
+singleton Isos 1.0 Isos.qml
+singleton Flasher 1.0 Flasher.qml
+
+# A qmldir shadows implicit same-directory resolution, so every non-singleton
+# type used across these files has to be listed too.
+FlasherUi 1.0 FlasherUi.qml

@@ -18,12 +18,12 @@ if [[ -e $config_dir && ! -L $config_dir ]]; then
   exit 1
 fi
 
-ln -sfn "$repo/shell" "$config_dir"
+ln -sfn "$repo" "$config_dir"
 ln -sf "$repo/bin/omarchy-usb-flasher" "$bin_dir/omarchy-usb-flasher"
 ln -sf "$repo/share/omarchy-usb-flasher.desktop" "$apps_dir/omarchy-usb-flasher.desktop"
 
 echo "Installed:"
-echo "  $config_dir -> $repo/shell"
+echo "  $config_dir -> $repo"
 echo "  $bin_dir/omarchy-usb-flasher"
 echo "  $apps_dir/omarchy-usb-flasher.desktop"
 echo

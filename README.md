@@ -41,6 +41,38 @@ to a USB stick that then installed cleanly.
 
 ## Install
 
+### As an Omarchy plugin (recommended)
+
+```bash
+omarchy plugin add https://github.com/ianleon/omarchy-usb-flasher.git --enable --yes
+```
+
+It loads into the running `omarchy-shell` as an overlay. Summon it with:
+
+```bash
+omarchy-shell shell toggle io.github.ianleon.usb-flasher '{}'
+```
+
+Bind that to a key in `~/.config/hypr/hyprland.conf` if you use it often:
+
+```
+bind = SUPER SHIFT, U, exec, omarchy-shell shell toggle io.github.ianleon.usb-flasher '{}'
+```
+
+**Removal:**
+
+```bash
+omarchy plugin remove io.github.ianleon.usb-flasher --yes
+```
+
+That deletes `~/.config/omarchy/plugins/io.github.ianleon.usb-flasher/` and drops
+the entry from `~/.config/omarchy/shell.json`. Nothing else on the system is
+touched — the plugin writes no configuration of its own.
+
+### As a standalone app
+
+Useful on a plain Quickshell setup, or for hacking on it:
+
 ```bash
 git clone https://github.com/ianleon/omarchy-usb-flasher.git
 cd omarchy-usb-flasher
@@ -52,7 +84,7 @@ the repo edits the installed app:
 
 | Link | Target |
 |------|--------|
-| `~/.config/quickshell/omarchy-usb-flasher` | `shell/` |
+| `~/.config/quickshell/omarchy-usb-flasher` | the repo |
 | `~/.local/bin/omarchy-usb-flasher` | `bin/omarchy-usb-flasher` |
 | `~/.local/share/applications/omarchy-usb-flasher.desktop` | `share/…desktop` |
 
@@ -64,21 +96,15 @@ omarchy-usb-flasher
 
 `./uninstall.sh` removes the three symlinks and nothing else.
 
-### Floating window (optional)
+### Floating window (standalone only)
 
-The app is a normal window, so Hyprland tiles it by default. To float it at a
+As a standalone app it is a normal window, so Hyprland tiles it by default. To float it at a
 comfortable size, add to `~/.config/hypr/hyprland.conf`:
 
 ```
 windowrule = float, class:org.quickshell, title:^(USB Flasher)$
 windowrule = size 1000 720, class:org.quickshell, title:^(USB Flasher)$
 windowrule = center, class:org.quickshell, title:^(USB Flasher)$
-```
-
-### Keybinding (optional)
-
-```
-bind = SUPER SHIFT, U, exec, omarchy-usb-flasher
 ```
 
 ## Using it
@@ -103,7 +129,7 @@ Everything works from the keyboard:
 
 ## What it actually runs
 
-`shell/flash.sh`, once, as root through `pkexec`:
+`flash.sh`, once, as root through `pkexec`:
 
 1. unmounts every partition of the target and disables swap on it
 2. refuses to continue if the drive is smaller than the image

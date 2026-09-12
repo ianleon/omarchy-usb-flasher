@@ -2,22 +2,33 @@
 
 ## Layout
 
+The plugin root is the repository root, because that is where Omarchy and the
+marketplace look for `manifest.json`.
+
 ```
-shell/
-  shell.qml        the window: two columns, footer, and the confirm /
-                   progress / result overlays
-  Theme.qml        palette from the active Omarchy theme's colors.toml,
-                   plus fc-match and hyprctl for font and corner radius
-  Drives.qml       lsblk poller; splits removable from fixed and flags
-                   any disk holding the running system
-  Isos.qml         finds .iso/.img files in the usual download directories
-  Flasher.qml      runs flash.sh under pkexec and parses its line protocol
-  Components/      Btn, Card, SelectRow, Toggle, ProgressTrack
-  flash.sh         the privileged half: unmount, wipe, dd, sync, verify
+manifest.json    Omarchy plugin descriptor (overlay, keepLoaded)
+Overlay.qml      plugin entry point: layer-shell overlay, scrim, centered card
+shell.qml        standalone entry point: a normal FloatingWindow
+FlasherUi.qml    the entire interface, hosted by either of the two above
+Theme.qml        palette from the active Omarchy theme's colors.toml,
+                 plus fc-match and hyprctl for font and corner radius
+Drives.qml       lsblk poller; splits removable from fixed and flags
+                 any disk holding the running system
+Isos.qml         finds .iso/.img files in the usual download directories
+Flasher.qml      runs flash.sh under pkexec and parses its line protocol
+Components/      Btn, Card, SelectRow, Toggle, ProgressTrack
+flash.sh         the privileged half: unmount, wipe, dd, sync, verify
+qmldir           singletons plus FlasherUi — a qmldir shadows implicit
+                 same-directory resolution, so every type must be listed
 ```
 
-`install.sh` symlinks `shell/` into `~/.config/quickshell/`, and Quickshell
-reloads on save, so editing a file here updates the running app.
+`FlasherUi` never decides what closing means: it emits `closeRequested` and the
+host either ends the process (standalone) or hides the overlay (plugin).
+
+`install.sh` symlinks the repo into `~/.config/quickshell/`, and Quickshell
+reloads on save, so editing a file here updates the running app. For the plugin
+path, symlink the repo into `~/.config/omarchy/plugins/<id>/` and run
+`omarchy-shell shell rescanPlugins`.
 
 ## Dry run
 
@@ -25,7 +36,7 @@ Set `USB_FLASHER_DRY_RUN` to a file path and the app becomes harmless:
 
 ```bash
 : > /tmp/dryrun.img
-USB_FLASHER_DRY_RUN=/tmp/dryrun.img qs -p shell/shell.qml
+USB_FLASHER_DRY_RUN=/tmp/dryrun.img qs -p .
 ```
 
 - the drive list gains a fake "Dry run target" row pointing at that file
@@ -46,7 +57,7 @@ Point the import at your checkout:
 ```qml
 import QtQuick
 import Quickshell
-import "file:/home/you/omarchy-usb-flasher/shell"
+import "file:/home/you/omarchy-usb-flasher"
 
 ShellRoot {
   Component.onCompleted: Flasher.start("/tmp/in.iso", "/tmp/out.img", true)
@@ -65,7 +76,7 @@ USB_FLASHER_DRY_RUN=1 qs -p that-file.qml
 the privileged half:
 
 ```bash
-bash shell/flash.sh /tmp/in.iso /tmp/out.img 1
+bash flash.sh /tmp/in.iso /tmp/out.img 1
 ```
 
 ## Conventions

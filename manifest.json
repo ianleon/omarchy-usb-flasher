@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.ianleon.usb-flasher",
+  "name": "USB Flasher",
+  "version": "1.0.0",
+  "author": "Ian Leon",
+  "description": "Write a Linux ISO to a USB drive, with verification and no way to pick the disk you are booted from",
+  "kinds": [
+    "overlay"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "overlay": "Overlay.qml"
+  }
+}
