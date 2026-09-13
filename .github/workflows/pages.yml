@@ -1,0 +1,38 @@
+# Deploys the landing page to GitHub Pages.
+#
+# The page's source is a private Next.js project; it builds there and pushes
+# only its static export to this repository's `gh-pages` branch. This workflow
+# takes that branch and publishes it, so the deploy history for the site lives
+# on the repository the site is about.
+name: Deploy landing page
+
+on:
+  push:
+    branches: [gh-pages]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never cancel a running deploy: a half-published site is worse than a late one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
