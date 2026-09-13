@@ -1,0 +1,3 @@
+:HL["/omarchy-usb-flasher/_next/static/chunks/278ww9p4ymdwl.css","style"]
+:HL["/omarchy-usb-flasher/_next/static/media/lexend_latin_variable-s.p.2svk7cnw5x6df.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"BdPtGlIitiivj5-E87ebm"}
